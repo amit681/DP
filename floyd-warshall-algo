@@ -1,0 +1,89 @@
+//https://www.youtube.com/watch?v=LwJdNfdLF9s&pbjreload=10
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	int v,e,source,des,weight,i,j;
+	cout<<"number of vertices\n";
+	cin>>v;
+	cout<<"number of edges\n";
+	cin>>e;
+	int dist[v][v],path[v][v];
+	for(i=0;i<v;i++)
+	{
+	
+	for(j=0;j<v;j++)
+	{
+	dist[i][j]=10000;
+	path[i][j]=10000;	
+	}
+	}
+	
+	while(e--)
+	{
+		cout<<"enter source node\n";
+		cin>>source;
+		cout<<"enter destination\n";
+		cin>>des;
+		cout<<"enter weight\n";
+		cin>>weight;
+		dist[source][des]=weight;
+		dist[source][source]=0;
+		dist[des][des]=0;
+		if(weight!=0&&weight!=INT_MAX)
+		path[source][des]=source;
+	}
+int k=0;
+for(k=0;k<v;k++)
+{
+for(i=0;i<v;i++)
+{
+for(j=0;j<v;j++)
+{
+	if(dist[i][j]>(dist[i][k]+dist[k][j]))
+	{
+	
+	dist[i][j]=(dist[i][k]+dist[k][j]);
+	path[i][j]=path[k][j];
+	}
+}
+}	
+}
+for(i=0;i<v;i++)
+{
+	for(j=0;j<v;j++)
+	{
+		cout<<dist[i][j]<<" ";
+	}
+	cout<<endl;
+}
+
+	cout<<"enter source\n";
+	cin>>source;
+	cout<<"enter destination\n";
+	cin>>des;
+	cout<<"shortest distence is\n";
+	cout<<dist[source][des]<<endl;
+	cout<<"shortest path\n";
+	cout<<des<<" ";
+	while(path[source][des]!=source)
+	{
+		cout<<(path[source][des])<<" ";
+		des=path[source][des];
+	}
+cout<<(source)<<" ";
+cout<<"detecting negative cycle\n";
+int flag=0;
+for(i=0;i<v;i++)
+{
+		if(dist[i][i]<0)
+		{
+		flag=1;
+		break;
+		}
+}
+if(flag==1)
+cout<<"yes\n";
+else cout<<"no\n";
+}
