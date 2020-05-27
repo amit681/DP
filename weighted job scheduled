@@ -1,0 +1,43 @@
+//https://www.youtube.com/watch?v=cr6Ip0J9izc&list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr&index=16
+
+#include<bits/stdc++.h>
+using namespace std;
+bool sortbysec(const tuple<int, int, int>& a,  
+               const tuple<int, int, int>& b) 
+{ 
+    return (get<1>(a)<get<1>(b)); 
+} 
+int main()
+{
+    int ini,fi,w,n,i,j;
+    cout<<"enter no. of jobs\n";
+    cin>>n;
+    int cost[n];
+    vector<tuple<int,int,int>>v;
+    for(i=0;i<n;i++)
+    {
+        cout<<"enter initial time\n";
+        cin>>ini;
+        cout<<"enter final time\n";
+        cin>>fi;
+        cout<<"enter weigth\n";
+        cin>>w;
+        cost[i]=w;
+          v.push_back(make_tuple(ini,fi,w));
+    }
+sort(v.begin(), v.end(), sortbysec); 
+int p=-1;
+for(i=1;i<n;i++)
+{
+    for(j=0;j<i;j++)
+    {
+        if(get<1>(v[j])<=get<0>(v[i]))
+        {
+            cost[i]=max(cost[i],(get<2>(v[i])+cost[j]));
+        }
+    }
+    p=max(p,cost[i]);
+}
+cout<<"Maximum profit is \n";
+cout<<p;
+}
