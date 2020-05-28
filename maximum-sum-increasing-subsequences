@@ -1,3 +1,4 @@
+//https://www.youtube.com/watch?v=80_2xFu47Is&list=PLCZJSEiJwWZ7kd4wXxIkFiU6mYXsCwYOC&index=2
 #include<stdio.h>
 
 int maxSum(int a[], int n)
