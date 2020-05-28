@@ -1,0 +1,56 @@
+//https://www.youtube.com/watch?v=frHLfD0hqqY&list=PLCZJSEiJwWZ7kd4wXxIkFiU6mYXsCwYOC&index=18  
+/*
+Problem:
+Given a sequence A of size N, find the length of the bitonic subsequence from a given sequence.
+
+
+*/
+
+#include <iostream>
+using namespace std;
+
+int longestIncreasingSubsequence(int arr[], int n)
+{
+ 
+    int dp[n],dp1[n];
+    for(int i = 0; i < n; i++) {
+        dp[i] = 1;
+        dp1[i]=1;
+    }
+    for(int i = 1; i < n; i++) {
+        for(int j = 0; j < i; j++) {
+            if(arr[j] < arr[i]) {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+    }
+    int p=-1;
+    for(int i=n-2;i>=0;i--)
+    {
+    	for(int j=n-1;j>i;j--)
+    	{
+    		 if(arr[j] < arr[i]) {
+                dp1[i] = max(dp1[i], dp1[j] + 1);
+            }
+		}
+		p=max(p,dp[i]+dp1[i]);
+	}
+    
+ 
+    
+    return p-1;
+}
+
+int main() {
+    
+    int n;
+    cin >> n;
+    int arr[n];
+    for(int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    
+    cout << longestIncreasingSubsequence(arr, n) << endl;
+	
+	return 0;
+}
