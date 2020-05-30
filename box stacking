@@ -1,0 +1,69 @@
+//https://www.youtube.com/watch?v=9mod_xRB-O0&list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr&index=28
+#include<bits/stdc++.h>
+using namespace std;
+bool sortbysec(const tuple<int, int, int,int>& a,  
+               const tuple<int, int, int,int>& b) 
+{ 
+    return (get<0>(a) > get<0>(b)); 
+} 
+int main()
+{
+	 vector<tuple<int, int, int,int> > v;
+	 int n,j;
+	 cout<<"number of disks\n";
+	 cin>>n;
+	 int i,cost[3*n],path[3*n],p[3];
+	 for(i=0;i<n;i++)
+	 {
+		 int l,w,h;
+		 cin>>l>>w>>h;
+		 p[0]=l,p[1]=w,p[2]=h;
+		 sort(p,p+2);
+
+		 l=p[2],w=p[1],h=p[0];
+		 int k=l*w;
+		 v.push_back(make_tuple(k,l,w,h));
+		  l=p[2],w=p[0],h=p[1];
+		 k=l*w;
+		 v.push_back(make_tuple(k,l,w,h));
+		 l=p[1],w=p[0],h=p[2];
+		 k=l*w;
+		 v.push_back(make_tuple(k,l,w,h));
+		 
+	 }
+	 sort(v.begin(), v.end(),sortbysec);
+	 for(i=0;i<3*n;i++)
+	 {
+		 cost[i]=get<3>(v[i]);
+		 path[i]=i;
+		 cout<<get<1>(v[i])<<" "<<get<2>(v[i])<<" ";
+		 cout<<cost[i]<<" ";
+		 cout<<endl;
+	 }
+
+	 for(i=1;i<3*n;i++)
+	 {
+	 for(j=0;j<i;j++)
+	 {
+		 if((get<1>(v[j])>get<1>(v[i]))&&(get<2>(v[j])>get<2>(v[i])))
+		 {
+	
+			 cost[i]=cost[j]+get<3>(v[i]);
+			 path[i]=j;
+		 }
+	 }
+	 }
+	 cout<<endl;
+
+	 cout<<endl;
+cout<<"MAX height is\n";
+cout<<cost[3*n-1]<<endl;
+cout<<"boxes are\n";
+i=3*n-1;
+while(i!=0)
+{
+	cout<<get<1>(v[i])<<" "<<get<2>(v[i])<<" "<<get<3>(v[i])<<" "<<endl;
+	i=path[i];
+}
+cout<<get<1>(v[0])<<" "<<get<2>(v[0])<<" "<<get<3>(v[0])<<" "<<endl;
+}
