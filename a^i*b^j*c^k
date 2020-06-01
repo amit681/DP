@@ -1,0 +1,38 @@
+#include <bits/stdc++.h> 
+using namespace std; 
+long mod=1e9+7;
+
+long countSubsequences(string s) 
+{
+    long aCount = 0; 
+    long bCount = 0; 
+    long cCount = 0; 
+    for (unsigned int i=0; i<s.size(); i++) 
+    { 
+    if (s[i] == 'a') 
+    {
+    aCount = (1 + 2 * (aCount%mod));
+    aCount%=mod;
+    } 
+    else if (s[i] == 'b') 
+    {   bCount = (aCount%mod + 2 * (bCount%mod)); 
+    bCount%=mod;
+    }
+    else if (s[i] == 'c') 
+	{
+        cCount = (bCount%mod + 2 * (cCount%mod)); 
+		cCount%=mod;
+	}
+    } 
+    return cCount%mod; 
+} 
+
+int main() 
+{ 
+    string s;
+	cin>>s;
+    cout << countSubsequences(s) << endl; 
+    return 0; 
+}
+
+//https://www.hackerearth.com/practice/algorithms/dynamic-programming/introduction-to-dynamic-programming-1/practice-problems/algorithm/favorite-subsequence/submissions/
