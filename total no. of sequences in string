@@ -1,0 +1,50 @@
+
+#include <iostream> 
+using namespace std; 
+
+
+int count(string a, string b) 
+{ 
+	int m = a.length(); 
+	int n = b.length(); 
+
+ 
+	int lookup[m + 1][n + 1] = { { 0 } }; 
+
+
+	for (int i = 0; i <= n; ++i) 
+		lookup[0][i] = 0; 
+
+
+	for (int i = 0; i <= m; ++i) 
+		lookup[i][0] = 1; 
+
+
+	for (int i = 1; i <= m; i++) 
+	{ 
+		for (int j = 1; j <= n; j++) 
+		{ 
+			
+			if (a[i - 1] == b[j - 1]) 
+				lookup[i][j] = (lookup[i - 1][j - 1] + 
+							lookup[i - 1][j])%1000000007; 
+				
+			else
+	
+				lookup[i][j] = lookup[i - 1][j]%1000000007; 
+		} 
+	} 
+
+	return lookup[m][n]%1000000007; 
+} 
+
+
+int main() 
+{ 
+	string a="abbcdab"; 
+	string b="ab"; 
+	cout <<count(a, b)%1000000007; 
+
+	return 0; 
+} 
+//https://www.hackerearth.com/practice/algorithms/dynamic-programming/introduction-to-dynamic-programming-1/practice-problems/algorithm/sg-and-strings/description/?sort=recent-comments
